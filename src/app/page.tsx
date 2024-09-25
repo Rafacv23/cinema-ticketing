@@ -52,7 +52,7 @@ export default function Home() {
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Carousel
-          className="w-full max-w-xs"
+          className="w-full max-w-xs md:max-w-xl"
           opts={{
             align: "center",
             loop: true,
@@ -60,16 +60,14 @@ export default function Home() {
         >
           <CarouselContent>
             {movies.map((movie) => (
-              <CarouselItem key={movie.title}>
+              <CarouselItem key={movie.title} className="md:basis-2/3">
                 <Link href={`/${movie.slug}`}>
-                  <Card>
+                  <Card className="hover:text-accent transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300  shadow-xl">
                     <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <img src={movie.image} />
+                      <img src={movie.image} className="rounded-xl" />
                     </CardContent>
                     <CardFooter>
-                      <span className="text-4xl font-semibold">
-                        {movie.title}
-                      </span>
+                      <h2 className="text-2xl font-semibold">{movie.title}</h2>
                     </CardFooter>
                   </Card>
                 </Link>
