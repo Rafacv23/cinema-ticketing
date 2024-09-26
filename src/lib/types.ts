@@ -3,9 +3,11 @@ export interface Movie {
   img: string
   title: string
   description: string
-  lastWeek: boolean
   genres: string[]
   trailer: string
   released: string
+  ends: string // date that comes out of cinema
+  director: string
+  cast: string[]
   price: number
 }
