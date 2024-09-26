@@ -16,9 +16,12 @@ const testMovie: Movie = {
   genres: ["Sci-fi", "Animation", "Superheroes"],
   description:
     "Peter Parker busca la ayuda de Doctor Strange cuando su identidad es revelada.",
-  lastWeek: true,
   trailer: "b_yMOiRgMmQ",
-  released: "05/12/2015",
+  director: "Tarantino",
+  cast: ["Di Caprio", "Stallone"],
+  released: "05/05/2024",
+  ends: "25/05/2024",
+  price: 6.99,
 }
 
 export default function Page({ params }: { params: { slug: string } }) {
