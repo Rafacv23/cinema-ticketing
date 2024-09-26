@@ -9,7 +9,7 @@ interface MovieCardProps {
 
 export default function MovieCard({ movie }: MovieCardProps) {
   return (
-    <Link href={`/${movie.slug}`}>
+    <Link href={`/movie/${movie.slug}`}>
       <Card
         className="w-64 overflow-hidden mx-auto h-[480px]"
         key={movie.title}
