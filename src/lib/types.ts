@@ -4,4 +4,7 @@ export interface Movie {
   title: string
   description: string
   lastWeek: boolean
+  genres: string[]
+  trailer: string
+  released: string
 }
