@@ -3,4 +3,5 @@ export interface Movie {
   img: string
   title: string
   description: string
+  lastWeek: boolean
 }
