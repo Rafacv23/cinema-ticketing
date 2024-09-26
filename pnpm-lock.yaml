@@ -38,6 +38,9 @@ importers:
       react-youtube:
         specifier: ^10.1.0
         version: 10.1.0(react@18.3.1)
+      simple-seat-picker:
+        specifier: ^0.0.7
+        version: 0.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
@@ -1436,6 +1439,12 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  simple-seat-picker@0.0.7:
+    resolution: {integrity: sha512-Akw4I7DbIgNzXkTytUkyxE7d7YC+cn/Y5XZkgXoXh3u1XHtHTOxxIO+lSvjiT/MnAUQJA9lILpVIS2kOp3buvg==}
+    peerDependencies:
+      react: 18.2.0
+      react-dom: 18.2.0
 
   sister@3.0.2:
     resolution: {integrity: sha512-p19rtTs+NksBRKW9qn0UhZ8/TUI9BPw9lmtHny+Y3TinWlOa9jWh9xB0AtPSdmOy49NJJJSSe0Ey4C7h0TrcYA==}
@@ -3212,6 +3221,11 @@ snapshots:
       object-inspect: 1.13.2
 
   signal-exit@4.1.0: {}
+
+  simple-seat-picker@0.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   sister@3.0.2: {}
 
