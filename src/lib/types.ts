@@ -7,4 +7,5 @@ export interface Movie {
   genres: string[]
   trailer: string
   released: string
+  price: number
 }
