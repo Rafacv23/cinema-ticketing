@@ -16,6 +16,9 @@ enum OrderStatus {
 
 model Movie {
   id                Int      @id @default(autoincrement())
+  title             String
+  slug              String    @unique
+  description       String
   release           DateTime
   endDate           DateTime
   genres            String[] @default([])
@@ -24,6 +27,7 @@ model Movie {
   duration          Int      // Duration in minutes
   poster            String   // URL of the movie poster image
   trailer           String?   // URL of the movie trailer
+  price             Float    @default(10.0) // Price per ticket
   tickets           Ticket[] // Relation with the Ticket model
 }
 
