@@ -13,13 +13,13 @@ export default async function Login() {
 
   if (user) {
     const existingUser = await prisma.user.findUnique({
-      where: { kindeId: user.id },
+      where: { id: user.id },
     })
     if (!existingUser) {
       // Si no existe, creamos un nuevo usuario
       const newUser = await prisma.user.create({
         data: {
-          kindeId: user.id,
+          id: user.id,
           email: user.email,
           name: `${user.given_name} ${user.family_name}`,
         },

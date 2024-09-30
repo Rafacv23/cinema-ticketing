@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,39 +7,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum OrderStatus {
+  confirmed
+  done
+  failed
+  await
+}
+
 model Movie {
   id                Int      @id @default(autoincrement())
   release           DateTime
   endDate           DateTime
-  genres            String[]
-  cast              String[]   // List of actors separated by commas
+  genres            String[] @default([])
+  cast              String[] @default([])   // List of actors separated by commas
   director          String
   duration          Int      // Duration in minutes
   poster            String   // URL of the movie poster image
-  trailer           String   // URL of the movie trailer
+  trailer           String?   // URL of the movie trailer
   tickets           Ticket[] // Relation with the Ticket model
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  kindeId   String   @unique  // Unique ID from Kinde authentication
-  email     String   @unique  // Email provided by Kinde
-  name      String?           // Optional, provided by Kinde
-  password  String?           // Optional, depending on Kinde's configuration
-  createdAt DateTime @default(now()) // Automatically stores the user creation time
-  tickets   Ticket[]           // Relation with the Ticket model
+  id        String   @id @unique  // Kinde's unique ID used as the primary key
+  email     String   @unique      // Email provided by Kinde
+  name      String?               // Optional name from Kinde
+  createdAt DateTime @default(now())  // Auto-generated creation time
+  tickets   Ticket[]              // One-to-many relation with Ticket
 }
+
 
 model Ticket {
   id        Int      @id @default(autoincrement())
   date      DateTime           // The date the ticket was booked or used
   time      DateTime           // Time of the movie or ticket booking
-  status    String             // For example, 'reserved', 'paid', etc.
+  status    OrderStatus @default(await)             // For example, 'reserved', 'paid', etc.
   seats     String[]           // List of seat numbers like ["1A", "2B", "3C"]
   movie     Movie    @relation(fields: [movieId], references: [id]) // Links the ticket to a movie
   movieId   Int                // Foreign key for Movie
-  user      User     @relation(fields: [userId], references: [id])  // Links the ticket to a user
-  userId    Int                // Foreign key for User
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String                // Foreign key for User
   createdAt DateTime @default(now()) // Stores when the ticket was created
 }
 
