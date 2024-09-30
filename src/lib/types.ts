@@ -1,13 +1,14 @@
 export interface Movie {
-  slug: string
-  img: string
+  poster: string
   title: string
+  slug: string
   description: string
   genres: string[]
   trailer: string
-  released: string
-  ends: string // date that comes out of cinema
+  release: string
+  endDate: string // date that comes out of cinema
   director: string
   cast: string[]
+  duration: number
   price: number
 }

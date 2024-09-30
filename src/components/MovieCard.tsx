@@ -16,7 +16,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
       >
         <CardContent className="p-0 flex flex-col h-full">
           <img
-            src={movie.img}
+            src={movie.poster}
             alt={`Póster de ${movie.title}`}
             className="w-full h-80 object-cover"
           />
