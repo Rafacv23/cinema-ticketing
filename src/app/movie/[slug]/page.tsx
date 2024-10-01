@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <div className="flex justify-between w-full items-center mb-4">
           <h1 className="text-3xl font-bold">{movie.title}</h1>
           <Link
-            href={`/${movie.slug}/cart`}
+            href={`/movie/${movie.slug}/cart`}
             className={buttonVariants({ variant: "default" })}
           >
             Buy tickets
