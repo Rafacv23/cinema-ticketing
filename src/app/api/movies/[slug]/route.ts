@@ -9,7 +9,6 @@ export async function GET(
   try {
     // Obtener el slug de los parámetros
     const slug = params.slug
-
     // Buscar la película por título
     const movie = await prisma.movie.findUnique({
       where: { slug: slug }, // Querying by title
