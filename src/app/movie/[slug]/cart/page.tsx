@@ -1,21 +1,26 @@
-"use client"
+import Reserve from "@/components/Reserve"
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 
-import { usePathname } from "next/navigation"
-import { createMatrix3x3, SeatMap, SeatMapProvider } from "simple-seat-picker"
-import "simple-seat-picker/dist/style.css"
+export default async function SeatForm({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const res = await fetch(
+    `http://localhost:3000/api/movies/${params.slug}/reservedSeats`
+  )
+  const occupiedSeats = await res.json()
 
-export default function Page() {
-  const pathname = usePathname()
-  console.log(pathname)
-  const data = createMatrix3x3({ row: 0, column: 1 })
-  const reserved = ["B28", "B29", "B30"]
-
+  const { getUser } = getKindeServerSession()
+  const user = await getUser()
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <div className="flex flex-col gap-8 row-start-2 items-center justify-center sm:items-start">
-        <SeatMapProvider>
-          <SeatMap size={data.size} cells={data.cells} reserved={reserved} />
-        </SeatMapProvider>
+        <Reserve
+          occupiedSeats={occupiedSeats}
+          movieId={params.slug}
+          userId={user.id}
+        />
       </div>
     </div>
   )
