@@ -37,7 +37,7 @@ export default async function createTicket(data: {
       },
     })
 
-    revalidatePath("/")
+    revalidatePath(`/movie/${movieId}/cart`)
     return {
       message: `Ticket created for movie ${movieId} and seats ${seats.join(
         ", "
