@@ -35,7 +35,7 @@ export default function StickyBuyBtn({
       <div className="container mx-auto flex justify-between items-center">
         <h2 className="text-xl font-semibold">{movieTitle}</h2>
         <Link
-          href={`/${movieSlug}/cart`}
+          href={`/movie/${movieSlug}/cart`}
           className={buttonVariants({ variant: "default" })}
         >
           Buy tickets
