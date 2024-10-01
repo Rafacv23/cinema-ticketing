@@ -39,6 +39,9 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --selected-color: #2ecc71;
+    --occupied-color: #e74c3c;
+    --available-color: #fff;
   }
   .dark {
     --background: 222.2 84% 4.9%;
@@ -75,4 +78,18 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.container {
+  perspective: 1000px;
+  margin-bottom: 3px;
+}
+
+.screen {
+  background-color: #fff;
+  height: 70px;
+  width: 100%;
+  margin: 15px 0;
+  transform: rotateX(-45deg);
+  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
 }
