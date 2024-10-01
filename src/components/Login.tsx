@@ -9,15 +9,6 @@ export default async function Login() {
   const { getUser } = getKindeServerSession()
   const user = await getUser()
 
-  if (user) {
-    await fetch(`http://localhost:3000/api/auth/isRegister`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-  }
-
   return user ? (
     <LogoutLink>LogOut</LogoutLink>
   ) : (
