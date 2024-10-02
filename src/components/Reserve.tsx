@@ -1,22 +1,25 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import createTicket from "@/app/movie/[slug]/cart/actions"
 import { SeatGrid } from "@/components/SeatGrid"
+import { buttonVariants } from "./ui/button"
+import { useRouter } from "next/navigation"
 
 interface SeatFormProps {
   movieId: string
   userId: string
-  occupiedSeats: string[]
+  occupiedSeatsData: { seats: string[]; date: string }[]
 }
 
 function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
   return (
     <button
       type="submit"
-      className={`px-4 py-2 rounded-md text-white transition duration-200 ${
-        isSubmitting ? "bg-gray-600" : "bg-blue-600 hover:bg-blue-700"
-      }`}
+      disabled={isSubmitting}
+      className={buttonVariants({
+        variant: "default",
+      })}
       aria-disabled={isSubmitting}
     >
       {isSubmitting ? "Reserving..." : "Reserve"}
@@ -27,9 +30,16 @@ function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
 export default function Reserve({
   movieId,
   userId,
-  occupiedSeats,
+  occupiedSeatsData,
 }: SeatFormProps) {
+  const today = new Date().toISOString().split("T")[0]
+  const router = useRouter()
+
   const [selectedSeats, setSelectedSeats] = useState<string[]>([])
+  const [selectedDate, setSelectedDate] = useState<string>(today)
+  const [filteredOccupiedSeats, setFilteredOccupiedSeats] = useState<string[]>(
+    []
+  )
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState<string>("")
 
@@ -41,6 +51,20 @@ export default function Reserve({
     )
   }
 
+  // Filter the occupied seats based on the selected date and time
+  useEffect(() => {
+    setSelectedSeats([]) // Reset selected seats
+
+    const filteredSeats = occupiedSeatsData
+      .filter(
+        (ticket) =>
+          new Date(ticket.date).toISOString().split("T")[0] === selectedDate
+      )
+      .flatMap((ticket) => ticket.seats)
+
+    setFilteredOccupiedSeats(filteredSeats)
+  }, [selectedDate, occupiedSeatsData])
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsSubmitting(true)
@@ -48,6 +72,7 @@ export default function Reserve({
     const payload = {
       movieId,
       userId,
+      date: selectedDate,
       seats: selectedSeats,
     }
 
@@ -55,6 +80,7 @@ export default function Reserve({
       const result = await createTicket(payload)
       if (result.message) {
         setMessage("Ticket reserved successfully!")
+        router.push(`/confirm/${result.ticketId}`)
       } else {
         setMessage("Failed to reserve ticket.")
       }
@@ -68,10 +94,21 @@ export default function Reserve({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-center">
+      <input
+        type="date"
+        id="showtime"
+        min={today}
+        value={selectedDate}
+        onChange={(e) => setSelectedDate(e.target.value)}
+        className={buttonVariants({
+          variant: "outline",
+        })}
+      />
+
       <SeatGrid
         selectedSeats={selectedSeats}
         onSeatSelect={handleSeatSelect}
-        occupiedSeats={occupiedSeats}
+        occupiedSeats={filteredOccupiedSeats}
       />
       <SubmitButton isSubmitting={isSubmitting} />
       <p className="mt-4 text-lg text-center" aria-live="polite" role="status">
