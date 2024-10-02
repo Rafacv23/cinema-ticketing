@@ -2,6 +2,8 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
+export const revalidate = 60
+
 export async function GET(
   request: Request,
   { params }: { params: { slug: string } }
@@ -11,16 +13,32 @@ export async function GET(
 
     const ticketsPerMovie = await prisma.ticket.findMany({
       where: { movieId: slug },
-      select: { seats: true },
+      select: {
+        seats: true,
+        date: true,
+        status: true, // Additional field for status
+        movie: {
+          select: {
+            title: true, // Retrieve movie title
+            price: true, // Retrieve movie price
+          },
+        },
+      },
     })
 
-    if (!ticketsPerMovie) {
+    if (!ticketsPerMovie || ticketsPerMovie.length === 0) {
       return new Response("No tickets found", { status: 404 })
     }
 
-    const occupiedSeats = ticketsPerMovie.flatMap((ticket) => ticket.seats)
+    const responseData = ticketsPerMovie.map((ticket) => ({
+      seats: ticket.seats,
+      date: ticket.date,
+      status: ticket.status, // Include the status
+      movieTitle: ticket.movie?.title, // Include movie title
+      moviePrice: ticket.movie?.price, // Include movie price
+    }))
 
-    return new Response(JSON.stringify(occupiedSeats), {
+    return new Response(JSON.stringify(responseData), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
