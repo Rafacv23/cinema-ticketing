@@ -16,6 +16,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     `http://localhost:3000/api/movies/${params.slug}`
   )
 
+  const today = formatDate(new Date())
   const { getUser } = getKindeServerSession()
   const user = await getUser()
   let isLogged = false
@@ -36,7 +37,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <YouTubePlayer movieTrailer={movie.trailer} />
         <div className="flex justify-between w-full items-center mb-4">
           <h1 className="text-3xl font-bold">{movie.title}</h1>
-          {user ? (
+          {movie.release > today ? null : user ? (
             <Link
               href={`/movie/${movie.slug}/cart`}
               className={buttonVariants({ variant: "default" })}
@@ -72,11 +73,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <p>{movie.director}</p>
         <h2 className="text-xl font-bold">Cast</h2>
         <p>{movie.cast.join(", ")}</p>
-        <StickyBuyBtn
-          movieSlug={movie.slug}
-          movieTitle={movie.title}
-          isLogged={isLogged}
-        />
+        {movie.release > today ? null : (
+          <StickyBuyBtn
+            movieSlug={movie.slug}
+            movieTitle={movie.title}
+            isLogged={isLogged}
+          />
+        )}
       </div>
     </div>
   )

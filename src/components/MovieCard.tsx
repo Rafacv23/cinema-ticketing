@@ -2,12 +2,15 @@ import { Movie } from "@/lib/types"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { formatDate } from "@/lib/utils"
 
 interface MovieCardProps {
   movie: Movie
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
+  const today = formatDate(new Date())
+
   return (
     <Link href={`/movie/${movie.slug}`}>
       <Card
@@ -27,7 +30,12 @@ export default function MovieCard({ movie }: MovieCardProps) {
               </small>
             )}
             <h3 className="font-bold text-lg mb-2">{movie.title}</h3>
-            <Button className="w-full mt-auto">Buy tickets</Button>
+            {movie.release > today ? (
+              <h4 className="text-medium pb-2">{formatDate(movie.release)}</h4>
+            ) : null}
+            <Button className="w-full mt-auto">
+              {movie.release < today ? "Buy tickets" : "See more details"}
+            </Button>
           </div>
         </CardContent>
       </Card>
