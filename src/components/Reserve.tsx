@@ -5,6 +5,7 @@ import createTicket from "@/app/movie/[slug]/cart/actions"
 import { SeatGrid } from "@/components/SeatGrid"
 import { buttonVariants } from "./ui/button"
 import { useRouter } from "next/navigation"
+import { Input } from "@/components/ui/input"
 
 interface SeatFormProps {
   movieId: string
@@ -94,15 +95,12 @@ export default function Reserve({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-center">
-      <input
+      <Input
         type="date"
         id="showtime"
         min={today}
         value={selectedDate}
         onChange={(e) => setSelectedDate(e.target.value)}
-        className={buttonVariants({
-          variant: "outline",
-        })}
       />
 
       <SeatGrid
