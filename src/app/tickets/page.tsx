@@ -1,3 +1,5 @@
+import BackBtn from "@/components/BackBtn"
+import DeleteTicket from "@/components/DeleteTicket"
 import {
   Table,
   TableBody,
@@ -36,40 +38,45 @@ export default async function Page() {
   const ticketsPerUser: Ticket[] = await res.json()
 
   return (
-    <Table>
-      <TableCaption>A list of your recent tickets.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Order Number</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Movie</TableHead>
-          <TableHead className="text-right">Seats</TableHead>
-          <TableHead className="text-right">Date</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {ticketsPerUser.length === 0 ? (
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <BackBtn url="/" />
+      <Table>
+        <TableCaption>A list of your recent tickets.</TableCaption>
+        <TableHeader>
           <TableRow>
-            <TableCell colSpan={5} className="text-center">
-              No tickets found.
-            </TableCell>
+            <TableHead className="w-[100px]">Order Number</TableHead>
+            <TableHead>Movie</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Seats</TableHead>
+            <TableHead>Date</TableHead>
           </TableRow>
-        ) : (
-          ticketsPerUser.map((ticket: Ticket) => (
-            <TableRow key={ticket.id}>
-              <TableCell className="font-medium">{ticket.id}</TableCell>
-              <TableCell>{ticket.status}</TableCell>
-              <TableCell>{ticket.movieId}</TableCell>
-              <TableCell className="text-right">
-                {ticket.seats.join(", ")}
-              </TableCell>
-              <TableCell className="text-right">
-                {formatDate(ticket.date)}
+        </TableHeader>
+        <TableBody>
+          {ticketsPerUser.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center">
+                No tickets found.
               </TableCell>
             </TableRow>
-          ))
-        )}
-      </TableBody>
-    </Table>
+          ) : (
+            ticketsPerUser.map((ticket: Ticket) => (
+              <TableRow key={ticket.id}>
+                <TableCell className="font-medium">{ticket.id}</TableCell>
+                <TableCell>{ticket.movieId}</TableCell>
+                <TableCell>{ticket.status}</TableCell>
+                <TableCell>{ticket.seats.join(", ")}</TableCell>
+                <TableCell>{formatDate(ticket.date)}</TableCell>
+                <TableCell className="text-right">
+                  <DeleteTicket
+                    ticketId={parseInt(ticket.id)}
+                    ticketDate={ticket.date}
+                  />
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </div>
   )
 }
