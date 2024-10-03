@@ -7,5 +7,5 @@ export default function YouTubePlayer({
 }: {
   movieTrailer: string
 }) {
-  return <YouTube videoId={movieTrailer} />
+  return <YouTube className="rounded-xl" videoId={movieTrailer} />
 }

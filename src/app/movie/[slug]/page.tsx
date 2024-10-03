@@ -31,56 +31,54 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const movie = await response.json()
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <div className="flex flex-col gap-8 row-start-2 items-center justify-center sm:items-start">
-        <BackBtn url={`/`} />
-        <YouTubePlayer movieTrailer={movie.trailer} />
-        <div className="flex justify-between w-full items-center mb-4">
-          <h1 className="text-3xl font-bold">{movie.title}</h1>
-          {movie.release > today ? null : user ? (
-            <Link
-              href={`/movie/${movie.slug}/cart`}
-              className={buttonVariants({ variant: "default" })}
-            >
-              Buy tickets
-            </Link>
-          ) : (
-            <CartBtn />
-          )}
-          <span className="flex items-center gap-2">
-            <Timer /> {movie.duration} min
-          </span>
-        </div>
-        <div className="flex justify-between w-full">
-          <div className="flex items-center gap-2">
-            <h2 className="text-xl font-bold">
-              <Calendar />
-            </h2>
-            <p>{formatDate(movie.release)}</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {movie.genres.map((genre: string) => (
-              <Badge variant={"outline"} key={genre}>
-                {genre}
-              </Badge>
-            ))}
-          </div>
-        </div>
-        <Separator className="my-2" />
-        <h2 className="text-xl font-bold">Description</h2>
-        <p>{movie.description}</p>
-        <h2 className="text-xl font-bold">Directed by</h2>
-        <p>{movie.director}</p>
-        <h2 className="text-xl font-bold">Cast</h2>
-        <p>{movie.cast.join(", ")}</p>
-        {movie.release > today ? null : (
-          <StickyBuyBtn
-            movieSlug={movie.slug}
-            movieTitle={movie.title}
-            isLogged={isLogged}
-          />
+    <div className="w-full grid gap-4">
+      <BackBtn url={`/`} />
+      <YouTubePlayer movieTrailer={movie.trailer} />
+      <div className="flex flex-col md:flex-row justify-between w-full items-start md:items-center gap-4 md:gap-0 mb-4">
+        <h1 className="text-3xl font-bold">{movie.title}</h1>
+        {movie.release > today ? null : user ? (
+          <Link
+            href={`/movie/${movie.slug}/cart`}
+            className={buttonVariants({ variant: "default" })}
+          >
+            Buy tickets
+          </Link>
+        ) : (
+          <CartBtn />
         )}
+        <span className="flex items-center gap-2">
+          <Timer /> {movie.duration} min
+        </span>
       </div>
+      <div className="flex flex-col gap-4 md:flex-row md:gap-0 justify-between w-full">
+        <div className="flex items-center gap-2">
+          <h2 className="text-xl font-bold">
+            <Calendar />
+          </h2>
+          <p>{formatDate(movie.release)}</p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {movie.genres.map((genre: string) => (
+            <Badge variant={"outline"} key={genre}>
+              {genre}
+            </Badge>
+          ))}
+        </div>
+      </div>
+      <Separator className="my-2" />
+      <h2 className="text-xl font-bold">Description</h2>
+      <p>{movie.description}</p>
+      <h2 className="text-xl font-bold">Directed by</h2>
+      <p>{movie.director}</p>
+      <h2 className="text-xl font-bold">Cast</h2>
+      <p>{movie.cast.join(", ")}</p>
+      {movie.release > today ? null : (
+        <StickyBuyBtn
+          movieSlug={movie.slug}
+          movieTitle={movie.title}
+          isLogged={isLogged}
+        />
+      )}
     </div>
   )
 }

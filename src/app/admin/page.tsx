@@ -1,5 +1,5 @@
 import BackBtn from "@/components/BackBtn"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import {
   Table,
   TableBody,
@@ -12,7 +12,6 @@ import {
 import { formatDate } from "@/lib/utils"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { Ticket } from "@prisma/client"
-import { CircleX } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -30,8 +29,8 @@ export default async function ProtectPage() {
   const tickets = await res.json()
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <header>
+    <div className="grid gap-4">
+      <header className="flex justify-between items-center">
         <BackBtn url="/" />
         <Link
           href="/admin/create"
@@ -59,11 +58,6 @@ export default async function ProtectPage() {
               <TableCell>{ticket.status}</TableCell>
               <TableCell>{ticket.seats.join(", ")}</TableCell>
               <TableCell>{formatDate(ticket.date)}</TableCell>
-              <TableCell className="text-right">
-                <Button variant={"destructive"}>
-                  <CircleX />
-                </Button>
-              </TableCell>
             </TableRow>
           ))}
         </TableBody>
