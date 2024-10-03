@@ -98,8 +98,12 @@ export default function Reserve({
       <Input
         type="date"
         id="showtime"
+        className="pl-10 grid"
         min={today}
         value={selectedDate}
+        style={{
+          colorScheme: "dark",
+        }}
         onChange={(e) => setSelectedDate(e.target.value)}
       />
 
