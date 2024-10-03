@@ -27,7 +27,7 @@ export default function Footer() {
       <small className="flex items-center gap-2 text-sm">
         Created with <Heart /> by
         <Link
-          className="hover:text-accent transition-colors"
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href={"www.rafacanosa.dev"}
           target="_blank"
         >
