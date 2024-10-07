@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Ticket" ADD COLUMN     "price" DOUBLE PRECISION NOT NULL DEFAULT 10.0;

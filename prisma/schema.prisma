@@ -50,6 +50,8 @@ model Ticket {
   movieId   String                // Foreign key for Movie
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String                // Foreign key for User
+  price     Float    @default(10.0)  // Price of the ticket
   createdAt DateTime @default(now()) // Stores when the ticket was created
 }
+
 
