@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: { id: number } }) {
         <li>Date: {formatDate(ticket.date)}</li>
         <li>Seats: {ticket.seats.join(", ")}</li>
       </ul>
-      <p>Total price: $100.00</p>
+      <p>Total price: ${ticket.price}</p>
       <footer className="flex gap-8">
         <Link
           href={"/"}
