@@ -11,6 +11,7 @@ interface SeatFormProps {
   movieId: string
   userId: string
   occupiedSeatsData: { seats: string[]; date: string }[]
+  moviePrice: number
 }
 
 function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
@@ -32,6 +33,7 @@ export default function Reserve({
   movieId,
   userId,
   occupiedSeatsData,
+  moviePrice,
 }: SeatFormProps) {
   const today = new Date().toISOString().split("T")[0]
   const router = useRouter()
@@ -70,11 +72,14 @@ export default function Reserve({
     event.preventDefault()
     setIsSubmitting(true)
 
+    const totalPrice = selectedSeats.length * moviePrice
+
     const payload = {
       movieId,
       userId,
       date: selectedDate,
       seats: selectedSeats,
+      price: totalPrice,
     }
 
     try {
@@ -106,12 +111,12 @@ export default function Reserve({
         }}
         onChange={(e) => setSelectedDate(e.target.value)}
       />
-
       <SeatGrid
         selectedSeats={selectedSeats}
         onSeatSelect={handleSeatSelect}
         occupiedSeats={filteredOccupiedSeats}
       />
+      <p className="mt-4">Total Price: ${selectedSeats.length * moviePrice}</p>
       <SubmitButton isSubmitting={isSubmitting} />
       <p className="mt-4 text-lg text-center" aria-live="polite" role="status">
         {message}

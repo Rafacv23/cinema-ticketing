@@ -18,6 +18,7 @@ export default async function SeatForm({
     <div className="grid gap-4">
       <BackBtn url={`/movie/${params.slug}`} />
       <Reserve
+        moviePrice={10}
         occupiedSeatsData={occupiedSeats}
         movieId={params.slug}
         userId={user.id}

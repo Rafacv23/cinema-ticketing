@@ -18,6 +18,7 @@ interface Ticket {
   movieId: string
   seats: string[]
   date: Date
+  price: number
 }
 
 export default async function Page() {
@@ -48,6 +49,7 @@ export default async function Page() {
             <TableHead>Movie</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Seats</TableHead>
+            <TableHead>Price</TableHead>
             <TableHead>Date</TableHead>
           </TableRow>
         </TableHeader>
@@ -65,6 +67,7 @@ export default async function Page() {
                 <TableCell>{ticket.movieId}</TableCell>
                 <TableCell>{ticket.status}</TableCell>
                 <TableCell>{ticket.seats.join(", ")}</TableCell>
+                <TableCell>{ticket.price}$</TableCell>
                 <TableCell>{formatDate(ticket.date)}</TableCell>
                 <TableCell className="text-right">
                   <DeleteTicket
