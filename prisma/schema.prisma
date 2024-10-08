@@ -43,7 +43,7 @@ model User {
 model Ticket {
   id        Int      @id @default(autoincrement())
   date      DateTime           // The date the ticket was booked or used
-  time      DateTime           // Time of the movie or ticket booking
+  time      String           // Time of the movie or ticket booking
   status    OrderStatus @default(await)             // For example, 'reserved', 'paid', etc.
   seats     String[]           // List of seat numbers like ["1A", "2B", "3C"]
   movie     Movie    @relation(fields: [movieId], references: [slug]) // Links the ticket to a movie
