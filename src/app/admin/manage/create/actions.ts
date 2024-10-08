@@ -31,9 +31,9 @@ export const createMovie = async (values: z.infer<typeof formSchema>) => {
     })
 
     console.log(`Movie created successfully:`, movie)
-    revalidatePath("/")
+    revalidatePath("/admin/manage")
     revalidatePath("/coming-soon")
-    redirect("/admin")
+    redirect("/")
     return { success: true, message: "Movie created successfully" }
   } catch (error) {
     console.error("Error creating movie:", error)
