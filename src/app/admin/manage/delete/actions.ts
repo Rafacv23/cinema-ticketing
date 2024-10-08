@@ -2,6 +2,7 @@
 
 import { PrismaClient } from "@prisma/client"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 const prisma = new PrismaClient()
 export const deleteMovie = async (movieSlug: string) => {
@@ -22,8 +23,9 @@ export const deleteMovie = async (movieSlug: string) => {
       where: { movieId: movieSlug },
     })
 
+    revalidatePath("/admin/manage")
     revalidatePath("/admin/manage/delete")
-
+    redirect("/admin/manage")
     return { success: true, message: "Movie deleted successfully" }
   } catch (error) {
     console.error("Error deleting movie:", error)

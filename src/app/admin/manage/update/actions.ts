@@ -1,6 +1,6 @@
 "use server"
 
-import { formSchema } from "@/components/AddMovieForm"
+import { formSchema } from "@/components/AddMovieForm" // Ensure correct import path
 import { z } from "zod"
 import { PrismaClient } from "@prisma/client"
 import { redirect } from "next/navigation"
@@ -8,12 +8,19 @@ import { revalidatePath } from "next/cache"
 
 const prisma = new PrismaClient()
 
-export const createMovie = async (values: z.infer<typeof formSchema>) => {
+// Update function to modify an existing movie
+export const updateMovie = async (
+  slug: string,
+  values: z.infer<typeof formSchema>
+) => {
   try {
+    // Convert release and end date strings to ISO format
     const releaseDate = new Date(values.release).toISOString()
     const endDate = new Date(values.endDate).toISOString()
 
-    const movie = await prisma.movie.create({
+    // Update the movie record in the database
+    const movie = await prisma.movie.update({
+      where: { slug }, // Find the movie by slug
       data: {
         title: values.title,
         slug: values.title.toLowerCase().replaceAll(" ", "-"),
@@ -30,15 +37,19 @@ export const createMovie = async (values: z.infer<typeof formSchema>) => {
       },
     })
 
-    console.log(`Movie created successfully:`, movie)
+    console.log(`Movie updated successfully:`, movie)
+
+    // Revalidate paths to ensure the latest data is fetched
     revalidatePath("/admin/manage")
     revalidatePath("/coming-soon")
+
+    // Redirect to a desired route after updating
     redirect("/admin/manage")
-    return { success: true, message: "Movie created successfully" }
+    return { success: true, message: "Movie updated successfully" }
   } catch (error) {
-    console.error("Error creating movie:", error)
-    return { success: false, message: "Failed to create movie" }
+    console.error("Error updating movie:", error)
+    return { success: false, message: "Failed to update movie" }
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect() // Disconnect the Prisma client
   }
 }
