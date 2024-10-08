@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "./ui/textarea"
-import { createMovie } from "@/app/admin/create/actions"
+import { createMovie } from "@/app/admin/manage/create/actions"
 
 export const formSchema = z.object({
   title: z.string().min(2, {

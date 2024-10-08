@@ -11,6 +11,7 @@ const ticketSchema = z.object({
   userId: z.string().min(1, "User ID is required"),
   seats: z.array(z.string()).min(1, "At least one seat must be selected"),
   date: z.string().min(1, "Date is required"),
+  time: z.string().min(1, "Time is required"),
   price: z.number().min(1, "Price is required"),
 })
 
@@ -19,6 +20,7 @@ export default async function createTicket(data: {
   userId: string
   seats: string[]
   date: string
+  time: string
   price: number
 }) {
   const parse = ticketSchema.safeParse(data)
@@ -27,7 +29,7 @@ export default async function createTicket(data: {
     return { message: "Failed to create ticket: Invalid data" }
   }
 
-  const { movieId, userId, seats, date, price } = parse.data
+  const { movieId, userId, seats, date, time, price } = parse.data
 
   try {
     const ticket = await prisma.ticket.create({
@@ -37,7 +39,7 @@ export default async function createTicket(data: {
         seats,
         status: "confirmed",
         date: new Date(date),
-        time: new Date(),
+        time: time,
         price: price,
       },
     })

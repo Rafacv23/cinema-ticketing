@@ -16,6 +16,7 @@ export async function GET(
       select: {
         seats: true,
         date: true,
+        time: true,
         status: true, // Additional field for status
         movie: {
           select: {
@@ -33,6 +34,7 @@ export async function GET(
     const responseData = ticketsPerMovie.map((ticket) => ({
       seats: ticket.seats,
       date: ticket.date,
+      time: ticket.time,
       status: ticket.status, // Include the status
       movieTitle: ticket.movie?.title, // Include movie title
       moviePrice: ticket.movie?.price, // Include movie price

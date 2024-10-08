@@ -10,8 +10,7 @@ import { Input } from "@/components/ui/input"
 interface SeatFormProps {
   movieId: string
   userId: string
-  occupiedSeatsData: { seats: string[]; date: string }[]
-  moviePrice: number
+  occupiedSeatsData: { seats: string[]; date: string; time: string }[] // Add time
 }
 
 function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
@@ -33,13 +32,13 @@ export default function Reserve({
   movieId,
   userId,
   occupiedSeatsData,
-  moviePrice,
 }: SeatFormProps) {
   const today = new Date().toISOString().split("T")[0]
   const router = useRouter()
 
   const [selectedSeats, setSelectedSeats] = useState<string[]>([])
   const [selectedDate, setSelectedDate] = useState<string>(today)
+  const [selectedTime, setSelectedTime] = useState<string>("12:00") // Initial time
   const [filteredOccupiedSeats, setFilteredOccupiedSeats] = useState<string[]>(
     []
   )
@@ -61,25 +60,25 @@ export default function Reserve({
     const filteredSeats = occupiedSeatsData
       .filter(
         (ticket) =>
-          new Date(ticket.date).toISOString().split("T")[0] === selectedDate
+          new Date(ticket.date).toISOString().split("T")[0] === selectedDate &&
+          ticket.time === selectedTime // Match both date and time
       )
       .flatMap((ticket) => ticket.seats)
 
     setFilteredOccupiedSeats(filteredSeats)
-  }, [selectedDate, occupiedSeatsData])
+  }, [selectedDate, selectedTime, occupiedSeatsData])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsSubmitting(true)
 
-    const totalPrice = selectedSeats.length * moviePrice
-
     const payload = {
       movieId,
       userId,
-      date: selectedDate,
+      date: selectedDate, // Use the formatted ISO datetime
+      time: selectedTime,
       seats: selectedSeats,
-      price: totalPrice,
+      price: 10, // Set a price, adjust accordingly
     }
 
     try {
@@ -111,12 +110,31 @@ export default function Reserve({
         }}
         onChange={(e) => setSelectedDate(e.target.value)}
       />
+
+      {/* Time selector */}
+      <select
+        value={selectedTime}
+        onChange={(e) => setSelectedTime(e.target.value)}
+        className="mt-2 mb-4 p-2 border rounded"
+        style={{
+          colorScheme: "dark",
+        }}
+      >
+        {Array.from({ length: 12 }).map((_, i) => {
+          const time = `${String(i + 12).padStart(2, "0")}:00`
+          return (
+            <option key={time} value={time}>
+              {time}
+            </option>
+          )
+        })}
+      </select>
+
       <SeatGrid
         selectedSeats={selectedSeats}
         onSeatSelect={handleSeatSelect}
         occupiedSeats={filteredOccupiedSeats}
       />
-      <p className="mt-4">Total Price: ${selectedSeats.length * moviePrice}</p>
       <SubmitButton isSubmitting={isSubmitting} />
       <p className="mt-4 text-lg text-center" aria-live="polite" role="status">
         {message}

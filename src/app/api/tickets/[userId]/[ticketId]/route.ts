@@ -10,8 +10,6 @@ export async function GET(
     const ticketId = parseInt(params.ticketId)
     const userId = params.userId
 
-    console.log(params)
-
     const ticketsPerUser = await prisma.ticket.findUnique({
       where: { id: ticketId, userId: userId },
     })

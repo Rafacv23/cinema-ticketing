@@ -13,8 +13,6 @@ export default async function Page({ params }: { params: { id: number } }) {
   const res = await fetch(`http://localhost:3000/api/tickets/${user.id}/${id}`)
   const ticket = await res.json()
 
-  console.log(ticket)
-
   return (
     <div className="grid gap-4">
       <h1>Thanks for your reservation!</h1>
@@ -23,6 +21,7 @@ export default async function Page({ params }: { params: { id: number } }) {
       <ul>
         <li>Tickets for {ticket.movieId}</li>
         <li>Date: {formatDate(ticket.date)}</li>
+        <li>Time: {ticket.time}</li>
         <li>Seats: {ticket.seats.join(", ")}</li>
       </ul>
       <p>Total price: ${ticket.price}</p>

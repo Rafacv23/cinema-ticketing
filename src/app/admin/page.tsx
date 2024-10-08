@@ -33,10 +33,10 @@ export default async function ProtectPage() {
       <header className="flex justify-between items-center">
         <BackBtn url="/" />
         <Link
-          href="/admin/create"
+          href="/admin/manage"
           className={buttonVariants({ variant: "default" })}
         >
-          Add a new movie
+          Manage
         </Link>
       </header>
       <Table>
@@ -48,6 +48,7 @@ export default async function ProtectPage() {
             <TableHead>Status</TableHead>
             <TableHead>Seats</TableHead>
             <TableHead>Date</TableHead>
+            <TableHead>Price</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -58,6 +59,7 @@ export default async function ProtectPage() {
               <TableCell>{ticket.status}</TableCell>
               <TableCell>{ticket.seats.join(", ")}</TableCell>
               <TableCell>{formatDate(ticket.date)}</TableCell>
+              <TableCell>{ticket.price}$</TableCell>
             </TableRow>
           ))}
         </TableBody>

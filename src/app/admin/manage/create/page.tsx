@@ -15,7 +15,7 @@ export default async function CreateMovie() {
 
   return (
     <div className="grid gap-4">
-      <BackBtn url="/admin" />
+      <BackBtn url="/admin/manage" />
       <AddMovieForm />
     </div>
   )
