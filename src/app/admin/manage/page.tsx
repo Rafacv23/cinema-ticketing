@@ -2,7 +2,7 @@ import BackBtn from "@/components/BackBtn"
 import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
 
-interface Movie {
+export interface Movie {
   id: string
   title: string
   slug: string
