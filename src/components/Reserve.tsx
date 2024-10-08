@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 interface SeatFormProps {
   movieId: string
   userId: string
+  moviePrice: number
   occupiedSeatsData: { seats: string[]; date: string; time: string }[] // Add time
 }
 

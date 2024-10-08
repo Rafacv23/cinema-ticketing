@@ -12,13 +12,14 @@ export default async function SeatForm({
   )
   const occupiedSeats = await res.json()
 
+  const moviePrice = 10
   const { getUser } = getKindeServerSession()
   const user = await getUser()
   return (
     <div className="grid gap-4">
       <BackBtn url={`/movie/${params.slug}`} />
       <Reserve
-        moviePrice={10}
+        moviePrice={moviePrice}
         occupiedSeatsData={occupiedSeats}
         movieId={params.slug}
         userId={user.id}
