@@ -18,7 +18,10 @@ export function Seat({ seat, occupied, onSelect, isSelected }: SeatProps) {
     <div
       className={`seat w-12 h-12 flex items-center justify-center border-2 rounded-md cursor-pointer transition-all duration-200 mx-2 my-2 ${
         occupied
-          ? buttonVariants({ variant: "destructive" })
+          ? buttonVariants({
+              variant: "destructive",
+              className: "cursor-not-allowed",
+            })
           : isSelected
           ? buttonVariants({ variant: "secondary" })
           : buttonVariants({ variant: "outline" })
