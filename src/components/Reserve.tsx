@@ -6,12 +6,21 @@ import { SeatGrid } from "@/components/SeatGrid"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import SubmitBtn from "@/components/buttons/SubmitBtn"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select"
 
 interface SeatFormProps {
   movieId: string
   userId: string
   moviePrice: number
-  occupiedSeatsData: { seats: string[]; date: string; time: string }[] // Add time
+  occupiedSeatsData: { seats: string[]; date: string; time: string }[]
 }
 
 export default function Reserve({
@@ -25,11 +34,11 @@ export default function Reserve({
 
   const [selectedSeats, setSelectedSeats] = useState<string[]>([])
   const [selectedDate, setSelectedDate] = useState<string>(today)
-  const [selectedTime, setSelectedTime] = useState<string>("12:00") // Initial time
+  const [selectedTime, setSelectedTime] = useState<string>("12:00")
   const [filteredOccupiedSeats, setFilteredOccupiedSeats] = useState<string[]>(
     []
   )
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [message, setMessage] = useState<string>("")
 
   const handleSeatSelect = (seat: string) => {
@@ -101,23 +110,24 @@ export default function Reserve({
       />
 
       {/* Time selector */}
-      <select
-        value={selectedTime}
-        onChange={(e) => setSelectedTime(e.target.value)}
-        className="mt-2 mb-4 p-2 border rounded"
-        style={{
-          colorScheme: "dark",
-        }}
-      >
-        {Array.from({ length: 12 }).map((_, i) => {
-          const time = `${String(i + 12).padStart(2, "0")}:00`
-          return (
-            <option key={time} value={time}>
-              {time}
-            </option>
-          )
-        })}
-      </select>
+      <Select onValueChange={setSelectedTime} defaultValue={selectedTime}>
+        <SelectTrigger className="mt-2 mb-4 p-2 border rounded">
+          <SelectValue placeholder="Select time" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Select Time</SelectLabel>
+            {Array.from({ length: 12 }).map((_, i) => {
+              const time = `${String(i + 12).padStart(2, "0")}:00`
+              return (
+                <SelectItem key={time} value={time}>
+                  {time}
+                </SelectItem>
+              )
+            })}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
 
       <SeatGrid
         selectedSeats={selectedSeats}
