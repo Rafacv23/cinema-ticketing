@@ -1,4 +1,4 @@
-import BackBtn from "@/components/BackBtn"
+import BackBtn from "@/components/buttons/BackBtn"
 import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
 

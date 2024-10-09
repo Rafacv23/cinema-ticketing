@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
-import CartBtn from "./CartBtn"
+import CartBtn from "@/components/buttons/CartBtn"
 
 export default function StickyBuyBtn({
   movieTitle,

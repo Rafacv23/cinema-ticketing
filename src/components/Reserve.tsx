@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import createTicket from "@/app/movie/[slug]/cart/actions"
 import { SeatGrid } from "@/components/SeatGrid"
-import { buttonVariants } from "./ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 

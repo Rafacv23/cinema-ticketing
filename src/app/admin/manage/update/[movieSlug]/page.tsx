@@ -1,5 +1,5 @@
-import BackBtn from "@/components/BackBtn"
-import UpdateMovieForm from "@/components/UpdateMovieForm"
+import BackBtn from "@/components/buttons/BackBtn"
+import UpdateMovieForm from "@/components/forms/UpdateMovieForm"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { notFound } from "next/navigation"
 

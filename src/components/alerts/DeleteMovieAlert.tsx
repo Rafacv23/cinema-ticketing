@@ -1,6 +1,5 @@
 "use client"
 
-import { deleteTicket } from "@/app/tickets/actions"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,34 +11,32 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+import { deleteMovie } from "@/app/admin/manage/delete/actions"
+import { Button } from "../ui/button"
 
-export default function DeleteTicket({
-  ticketId,
-  ticketDate,
+export default function DeleteMovieAlert({
+  slug,
+  title,
 }: {
-  ticketId: number
-  ticketDate: Date
+  slug: string
+  title: string
 }) {
-  const today = new Date()
-  const ticketDateFormatted = new Date(ticketDate)
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" disabled={today > ticketDateFormatted}>
-          Cancel
-        </Button>
+        <Button variant="destructive">{title}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            You are going to cancel this ticket. This action its irreversible.
+            You are going to delete this movie: {title}. This action its
+            irreversible.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteTicket(ticketId)}>
+          <AlertDialogAction onClick={() => deleteMovie(slug)}>
             Sure
           </AlertDialogAction>
         </AlertDialogFooter>

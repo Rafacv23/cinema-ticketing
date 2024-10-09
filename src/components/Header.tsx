@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Ellipsis } from "lucide-react"
-import NavigationBtns from "@/components/NavigationBtns"
+import NavigationBtns from "@/components/buttons/NavigationBtns"
 
 export default async function Header() {
   const { getUser } = getKindeServerSession()

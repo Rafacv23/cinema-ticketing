@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { formatDate } from "@/lib/utils"
-import DeleteTicket from "./DeleteTicket"
+import DeleteTicket from "@/components/alerts/DeleteTicketAlert"
 import { Ticket } from "@/app/tickets/page"
 
 interface TicketsTableProps {

@@ -1,6 +1,6 @@
-import BackBtn from "@/components/BackBtn"
+import BackBtn from "@/components/buttons/BackBtn"
 import { Movie } from "../page"
-import DeleteMovieAlert from "@/components/DeleteMovieAlert"
+import DeleteMovieAlert from "@/components/alerts/DeleteMovieAlert"
 
 export default async function Page() {
   const res = await fetch(`http://localhost:3000/api/movies`)

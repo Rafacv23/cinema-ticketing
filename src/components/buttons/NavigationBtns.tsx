@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { buttonVariants } from "./ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 
 export default function NavigationBtns() {

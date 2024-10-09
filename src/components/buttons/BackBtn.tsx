@@ -1,6 +1,6 @@
 import { Undo2 } from "lucide-react"
 import Link from "next/link"
-import { buttonVariants } from "./ui/button"
+import { buttonVariants } from "@/components/ui/button"
 
 export default function BackBtn({ url }: { url: string }) {
   return (

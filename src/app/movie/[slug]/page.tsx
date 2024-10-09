@@ -4,11 +4,11 @@ import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
 import { formatDate } from "@/lib/utils"
-import StickyBuyBtn from "@/components/StickyBuyBtn"
+import StickyBuyBtn from "@/components/buttons/StickyBuyBtn"
 import YouTubePlayer from "@/components/YoutubePlayer"
-import CartBtn from "@/components/CartBtn"
+import CartBtn from "@/components/buttons/CartBtn"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
-import BackBtn from "@/components/BackBtn"
+import BackBtn from "@/components/buttons/BackBtn"
 
 export default async function Page({ params }: { params: { slug: string } }) {
   // Fetch the movie data based on the slug

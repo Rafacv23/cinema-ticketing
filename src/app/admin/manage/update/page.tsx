@@ -1,4 +1,4 @@
-import BackBtn from "@/components/BackBtn"
+import BackBtn from "@/components/buttons/BackBtn"
 import { Movie } from "../page"
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
