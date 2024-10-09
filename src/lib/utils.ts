@@ -9,6 +9,11 @@ export function formatDate(isoDate: string | Date): string {
   // Create a Date object from the ISO date string
   const date = new Date(isoDate)
 
+  // Check if the date is valid
+  if (isNaN(date.getTime())) {
+    return "Invalid Date" // Return a meaningful message for invalid dates
+  }
+
   // Extract the year, month, and day
   const year = date.getFullYear()
   const month = String(date.getMonth() + 1).padStart(2, "0") // Months are 0-indexed
