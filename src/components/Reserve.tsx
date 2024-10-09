@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react"
 import createTicket from "@/app/movie/[slug]/cart/actions"
 import { SeatGrid } from "@/components/SeatGrid"
-import { buttonVariants } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
+import SubmitBtn from "@/components/buttons/SubmitBtn"
 
 interface SeatFormProps {
   movieId: string
@@ -14,25 +14,11 @@ interface SeatFormProps {
   occupiedSeatsData: { seats: string[]; date: string; time: string }[] // Add time
 }
 
-function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
-  return (
-    <button
-      type="submit"
-      disabled={isSubmitting}
-      className={buttonVariants({
-        variant: "default",
-      })}
-      aria-disabled={isSubmitting}
-    >
-      {isSubmitting ? "Reserving..." : "Reserve"}
-    </button>
-  )
-}
-
 export default function Reserve({
   movieId,
   userId,
   occupiedSeatsData,
+  moviePrice,
 }: SeatFormProps) {
   const today = new Date().toISOString().split("T")[0]
   const router = useRouter()
@@ -73,13 +59,15 @@ export default function Reserve({
     event.preventDefault()
     setIsSubmitting(true)
 
+    const totalPrice = selectedSeats.length * moviePrice
+
     const payload = {
       movieId,
       userId,
       date: selectedDate, // Use the formatted ISO datetime
       time: selectedTime,
       seats: selectedSeats,
-      price: 10, // Set a price, adjust accordingly
+      price: totalPrice, // Set a price, adjust accordingly
     }
 
     try {
@@ -136,7 +124,10 @@ export default function Reserve({
         onSeatSelect={handleSeatSelect}
         occupiedSeats={filteredOccupiedSeats}
       />
-      <SubmitButton isSubmitting={isSubmitting} />
+      <SubmitBtn
+        isSubmitting={isSubmitting}
+        price={selectedSeats.length * moviePrice}
+      />
       <p className="mt-4 text-lg text-center" aria-live="polite" role="status">
         {message}
       </p>
