@@ -49,12 +49,10 @@ export default function Reserve({
         setSelectedDate={setSelectedDate}
         today={new Date().toISOString().split("T")[0]}
       />
-
       <TimeSelect
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
       />
-
       <SeatGrid
         selectedSeats={selectedSeats}
         onSeatSelect={handleSeatSelect}

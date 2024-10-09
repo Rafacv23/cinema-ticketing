@@ -46,17 +46,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
         ) : (
           <CartBtn />
         )}
-        <span className="flex items-center gap-2">
+        <Badge variant={"outline"} className="flex items-center gap-2">
           <Timer /> {movie.duration} min
-        </span>
+        </Badge>
       </div>
       <div className="flex flex-col gap-4 md:flex-row md:gap-0 justify-between w-full">
-        <div className="flex items-center gap-2">
+        <Badge variant={"outline"} className="flex items-center gap-2">
           <h2 className="text-xl font-bold">
             <Calendar />
           </h2>
           <p>{formatDate(movie.release)}</p>
-        </div>
+        </Badge>
         <div className="flex flex-wrap gap-2">
           {movie.genres.map((genre: string) => (
             <Badge variant={"outline"} key={genre}>
