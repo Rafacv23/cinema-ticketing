@@ -1,20 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import createTicket from "@/app/movie/[slug]/cart/actions"
 import { SeatGrid } from "@/components/SeatGrid"
 import { useRouter } from "next/navigation"
-import { Input } from "@/components/ui/input"
 import SubmitBtn from "@/components/buttons/SubmitBtn"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select"
+import TimeSelect from "@/components/TimeSelect"
+import { useReservation } from "@/hooks/useReservation"
+import DatePicker from "@/components/DatePicker"
+import createTicket from "@/app/movie/[slug]/cart/actions"
 
 interface SeatFormProps {
   movieId: string
@@ -29,105 +21,39 @@ export default function Reserve({
   occupiedSeatsData,
   moviePrice,
 }: SeatFormProps) {
-  const today = new Date().toISOString().split("T")[0]
   const router = useRouter()
 
-  const [selectedSeats, setSelectedSeats] = useState<string[]>([])
-  const [selectedDate, setSelectedDate] = useState<string>(today)
-  const [selectedTime, setSelectedTime] = useState<string>("12:00")
-  const [filteredOccupiedSeats, setFilteredOccupiedSeats] = useState<string[]>(
-    []
-  )
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-  const [message, setMessage] = useState<string>("")
-
-  const handleSeatSelect = (seat: string) => {
-    setSelectedSeats((prevSeats) =>
-      prevSeats.includes(seat)
-        ? prevSeats.filter((s) => s !== seat)
-        : [...prevSeats, seat]
-    )
-  }
-
-  // Filter the occupied seats based on the selected date and time
-  useEffect(() => {
-    setSelectedSeats([]) // Reset selected seats
-
-    const filteredSeats = occupiedSeatsData
-      .filter(
-        (ticket) =>
-          new Date(ticket.date).toISOString().split("T")[0] === selectedDate &&
-          ticket.time === selectedTime // Match both date and time
-      )
-      .flatMap((ticket) => ticket.seats)
-
-    setFilteredOccupiedSeats(filteredSeats)
-  }, [selectedDate, selectedTime, occupiedSeatsData])
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsSubmitting(true)
-
-    const totalPrice = selectedSeats.length * moviePrice
-
-    const payload = {
-      movieId,
-      userId,
-      date: selectedDate, // Use the formatted ISO datetime
-      time: selectedTime,
-      seats: selectedSeats,
-      price: totalPrice, // Set a price, adjust accordingly
-    }
-
-    try {
-      const result = await createTicket(payload)
-      if (result.message) {
-        setMessage("Ticket reserved successfully!")
-        router.push(`/confirm/${result.ticketId}`)
-      } else {
-        setMessage("Failed to reserve ticket.")
-      }
-    } catch (error) {
-      console.error("Error reserving ticket:", error)
-      setMessage("An error occurred while reserving the ticket.")
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+  const {
+    selectedSeats,
+    selectedDate,
+    setSelectedDate,
+    selectedTime,
+    setSelectedTime,
+    filteredOccupiedSeats,
+    isSubmitting,
+    message,
+    handleSeatSelect,
+    handleSubmit,
+  } = useReservation({ movieId, userId, moviePrice, occupiedSeatsData })
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-center">
-      <Input
-        type="date"
-        id="showtime"
-        className="pl-10 grid"
-        min={today}
-        value={selectedDate}
-        style={{
-          colorScheme: "dark",
-        }}
-        onChange={(e) => setSelectedDate(e.target.value)}
+    <form
+      onSubmit={(event) => {
+        event.preventDefault()
+        handleSubmit(createTicket, router)
+      }}
+      className="flex flex-col items-center"
+    >
+      <DatePicker
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        today={new Date().toISOString().split("T")[0]}
       />
 
-      {/* Time selector */}
-      <Select onValueChange={setSelectedTime} defaultValue={selectedTime}>
-        <SelectTrigger className="mt-2 mb-4 p-2 border rounded">
-          <SelectValue placeholder="Select time" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Select Time</SelectLabel>
-            {Array.from({ length: 12 }).map((_, i) => {
-              const time = `${String(i + 12).padStart(2, "0")}:00`
-              return (
-                <SelectItem key={time} value={time}>
-                  {time}
-                </SelectItem>
-              )
-            })}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      <TimeSelect
+        selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
+      />
 
       <SeatGrid
         selectedSeats={selectedSeats}
