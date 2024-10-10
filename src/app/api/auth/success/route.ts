@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { NextResponse } from "next/server"
+import { SITE_URL } from "@/site/config"
 
 const prisma = new PrismaClient()
 
@@ -25,5 +26,5 @@ export async function GET() {
     })
   }
 
-  return NextResponse.redirect("https://cinepass-jade.vercel.app")
+  return NextResponse.redirect(SITE_URL)
 }

@@ -2,11 +2,12 @@ import BackBtn from "@/components/buttons/BackBtn"
 import { Movie } from "../page"
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
+import { SITE_URL } from "@/site/config"
 
 export const revalidate = 60
 
 export default async function Page() {
-  const res = await fetch(`http://localhost:3000/api/movies`)
+  const res = await fetch(`${SITE_URL}/api/movies`)
 
   if (!res.ok) {
     return <div>Error fetching movies.</div>
