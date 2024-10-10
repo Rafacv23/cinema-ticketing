@@ -1,5 +1,6 @@
 import BackBtn from "@/components/buttons/BackBtn"
 import Reserve from "@/components/Reserve"
+import { SITE_URL } from "@/site/config"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 
 export default async function SeatForm({
@@ -7,9 +8,7 @@ export default async function SeatForm({
 }: {
   params: { slug: string }
 }) {
-  const res = await fetch(
-    `http://localhost:3000/api/movies/${params.slug}/reservedSeats`
-  )
+  const res = await fetch(`${SITE_URL}/api/movies/${params.slug}/reservedSeats`)
   const occupiedSeats = await res.json()
 
   const moviePrice = 10

@@ -9,12 +9,11 @@ import YouTubePlayer from "@/components/YoutubePlayer"
 import CartBtn from "@/components/buttons/CartBtn"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import BackBtn from "@/components/buttons/BackBtn"
+import { SITE_URL } from "@/site/config"
 
 export default async function Page({ params }: { params: { slug: string } }) {
   // Fetch the movie data based on the slug
-  const response = await fetch(
-    `http://localhost:3000/api/movies/${params.slug}`
-  )
+  const response = await fetch(`${SITE_URL}/api/movies/${params.slug}`)
 
   const today = formatDate(new Date())
   const { getUser } = getKindeServerSession()

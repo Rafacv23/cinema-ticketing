@@ -1,6 +1,7 @@
 import Celebration from "@/components/Celebration"
 import { buttonVariants } from "@/components/ui/button"
 import { formatDate } from "@/lib/utils"
+import { SITE_URL } from "@/site/config"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import Link from "next/link"
 
@@ -10,7 +11,7 @@ export default async function Page({ params }: { params: { id: number } }) {
   const { getUser } = getKindeServerSession()
   const user = await getUser()
 
-  const res = await fetch(`http://localhost:3000/api/tickets/${user.id}/${id}`)
+  const res = await fetch(`${SITE_URL}/api/tickets/${user.id}/${id}`)
   const ticket = await res.json()
 
   return (

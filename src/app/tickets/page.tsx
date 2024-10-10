@@ -1,5 +1,6 @@
 import BackBtn from "@/components/buttons/BackBtn"
 import TicketsTable from "@/components/TicketsTable"
+import { SITE_URL } from "@/site/config"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 
 export interface Ticket {
@@ -21,7 +22,7 @@ export default async function Page() {
     return <div>User not found. Please log in.</div>
   }
 
-  const res = await fetch(`http://localhost:3000/api/tickets/${user.id}`)
+  const res = await fetch(`${SITE_URL}/api/tickets/${user.id}`)
 
   // Check if response is ok
   if (!res.ok) {

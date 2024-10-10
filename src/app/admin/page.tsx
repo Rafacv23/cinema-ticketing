@@ -1,6 +1,7 @@
 import BackBtn from "@/components/buttons/BackBtn"
 import TicketsTable from "@/components/TicketsTable"
 import { buttonVariants } from "@/components/ui/button"
+import { SITE_URL } from "@/site/config"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -15,7 +16,7 @@ export default async function ProtectPage() {
     return notFound()
   }
 
-  const res = await fetch(`http://localhost:3000/api/tickets/admin`)
+  const res = await fetch(`${SITE_URL}/api/tickets/admin`)
   const tickets = await res.json()
 
   return (
