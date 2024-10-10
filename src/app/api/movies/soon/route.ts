@@ -8,7 +8,7 @@ export async function GET() {
   try {
     const currentDate = new Date()
     const movies = await prisma.movie.findMany({
-      where: { release: { lt: currentDate } },
+      where: { release: { gt: currentDate } },
       orderBy: { release: "asc" },
     })
 
