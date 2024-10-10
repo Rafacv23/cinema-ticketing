@@ -30,8 +30,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
       >
-        <div className="grid grid-cols-5 grid-rows-5 gap-4">
-          <div className="col-span-5 md:col-span-3 md:col-start-2">
+        <div className="grid grid-cols-5 grid-rows-1 gap-4">
+          <div className="col-span-5 md:col-span-3 md:col-start-2 row">
             <Header />
           </div>
           <div className="col-span-5 md:col-span-3 row-span-3 md:col-start-2 row-start-2 mb-16 mx-auto">

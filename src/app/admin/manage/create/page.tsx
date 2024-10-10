@@ -15,7 +15,7 @@ export default async function CreateMovie() {
 
   return (
     <div className="grid gap-4">
-      <h1 className="font-bold text-2xl">Update Movie</h1>
+      <h1 className="font-bold text-2xl">Create Movie</h1>
       <BackBtn url="/admin/manage" />
       <AddMovieForm />
     </div>

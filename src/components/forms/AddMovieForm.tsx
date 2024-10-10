@@ -152,7 +152,7 @@ export default function AddMovieForm() {
           )}
         />
         {/* Genres array field */}
-        <FormItem>
+        <FormItem className="flex flex-col gap-2">
           <FormLabel>Genres</FormLabel>
           {genreFields.map((item, index) => (
             <div key={item.id} className="flex items-center gap-2">
@@ -177,7 +177,7 @@ export default function AddMovieForm() {
         </FormItem>
 
         {/* Cast array field */}
-        <FormItem>
+        <FormItem className="flex flex-col gap-2">
           <FormLabel>Cast</FormLabel>
           {castFields.map((item, index) => (
             <div key={item.id} className="flex items-center gap-2">

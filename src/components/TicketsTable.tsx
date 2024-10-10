@@ -18,7 +18,7 @@ interface TicketsTableProps {
 
 export default function TicketsTable({ tickets, user }: TicketsTableProps) {
   return (
-    <Table>
+    <Table className="bg-card rounded">
       <TableCaption>
         {user ? "A list of your recent tickets." : "A list of all tickets."}
       </TableCaption>
