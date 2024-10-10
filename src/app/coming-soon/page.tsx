@@ -1,7 +1,7 @@
 import MoviesList from "@/components/MoviesList"
 import { SITE_URL } from "@/site/config"
 
-export default async function Home() {
+export default async function Page() {
   try {
     const response = await fetch(`${SITE_URL}/api/movies/soon`)
 
