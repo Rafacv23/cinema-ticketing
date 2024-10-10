@@ -4,9 +4,8 @@ export async function GET() {
   const prisma = new PrismaClient()
 
   try {
-    const currentDate = new Date()
     const movies = await prisma.movie.findMany({
-      where: { release: { gt: currentDate } },
+      where: { release: { gt: new Date() } },
       orderBy: { release: "asc" },
     })
 
