@@ -11,6 +11,7 @@ export default function MoviesList({
   movies,
   inTheaters,
 }: MoviesCarouselProps) {
+  console.log(movies)
   return (
     <div>
       <h2 className="text-3xl font-bold mb-6">
