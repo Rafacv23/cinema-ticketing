@@ -3,7 +3,7 @@ import { Github, Heart, Linkedin } from "lucide-react"
 import Link from "next/link"
 export default function Footer() {
   return (
-    <footer className="bg-white/60 dark:bg-slate-900/60 flex flex-col justify-center bottom-0 gap-4 items-center p-4 w-full border shadow-xl rounded-xl md:mt-4 border-b-slate-200 dark:border-b-slate-700">
+    <footer className="flex flex-col justify-center bottom-0 gap-4 items-center p-4 w-full border rounded-xl md:mt-4">
       <div className="flex gap-2 flex-wrap">
         <Link
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"

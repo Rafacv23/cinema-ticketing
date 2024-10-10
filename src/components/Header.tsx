@@ -14,7 +14,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Ellipsis } from "lucide-react"
+import {
+  Ellipsis,
+  LogIn,
+  LogOut,
+  ShieldCheck,
+  Ticket,
+  UserPlus,
+} from "lucide-react"
 import NavigationBtns from "@/components/buttons/NavigationBtns"
 
 export default async function Header() {
@@ -25,7 +32,7 @@ export default async function Header() {
   const isAuthenticated = user !== null
 
   return (
-    <header className="backdrop-blur-lg backdrop-opacity-60 bg-white/60 dark:bg-slate-900/60 flex justify-center space-x-4 items-center p-4 sticky top-0 z-40 w-full border shadow-xl rounded-xl md:mt-4 border-b-slate-200 dark:border-b-slate-700">
+    <header className="backdrop-blur-lg backdrop-opacity-60 bg-card flex justify-center space-x-4 items-center p-4 sticky top-0 z-40 w-full border rounded-xl md:mt-4">
       <div className="flex-grow flex justify-center space-x-4 items-center">
         <NavigationBtns />
       </div>
@@ -41,26 +48,26 @@ export default async function Header() {
           {isAuthenticated ? (
             <DropdownMenuItem>
               <Link
-                href={"/tickets"}
+                href="/tickets"
                 className={buttonVariants({
-                  variant: "default",
-                  className: "w-full",
+                  variant: "ghost",
+                  className: "w-full justify-start",
                 })}
               >
-                Tickets
+                <Ticket className="mr-2 h-4 w-4" /> Tickets
               </Link>
             </DropdownMenuItem>
           ) : null}
           {isAdmin ? (
             <DropdownMenuItem>
               <Link
-                href={"/admin"}
+                href="/admin"
                 className={buttonVariants({
-                  variant: "default",
-                  className: "w-full",
+                  variant: "ghost",
+                  className: "w-full justify-start",
                 })}
               >
-                Admin
+                <ShieldCheck className="mr-2 h-4 w-4" /> Admin
               </Link>
             </DropdownMenuItem>
           ) : null}
@@ -68,33 +75,33 @@ export default async function Header() {
             <DropdownMenuItem>
               <LogoutLink
                 className={buttonVariants({
-                  variant: "outline",
-                  className: "w-full",
+                  variant: "destructive",
+                  className: "w-full justify-start",
                 })}
               >
-                LogOut
+                <LogOut className="mr-2 h-4 w-4" /> Log Out
               </LogoutLink>
             </DropdownMenuItem>
           ) : (
             <>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <LoginLink
                   className={buttonVariants({
-                    variant: "outline",
-                    className: "w-full",
+                    variant: "ghost",
+                    className: "w-full justify-start cursor-pointer",
                   })}
                 >
-                  Login
+                  <LogIn className="mr-2 h-4 w-4" /> Login
                 </LoginLink>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <RegisterLink
                   className={buttonVariants({
-                    variant: "outline",
-                    className: "w-full",
+                    variant: "ghost",
+                    className: "w-full justify-start cursor-pointer",
                   })}
                 >
-                  Register
+                  <UserPlus className="mr-2 h-4 w-4" /> Register
                 </RegisterLink>
               </DropdownMenuItem>
             </>

@@ -1,4 +1,4 @@
-import BackBtn from "@/components/BackBtn"
+import BackBtn from "@/components/buttons/BackBtn"
 import TicketsTable from "@/components/TicketsTable"
 import { buttonVariants } from "@/components/ui/button"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"

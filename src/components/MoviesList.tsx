@@ -12,7 +12,7 @@ export default function MoviesList({
   inTheaters,
 }: MoviesCarouselProps) {
   return (
-    <div className="">
+    <div>
       <h2 className="text-3xl font-bold mb-6">
         {inTheaters ? "Now in theaters" : "Coming soon"}
       </h2>

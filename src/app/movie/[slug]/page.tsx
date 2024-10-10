@@ -32,9 +32,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className="w-full grid gap-4">
-      <BackBtn url={`/`} />
       <YouTubePlayer movieTrailer={movie.trailer} />
-      <div className="flex flex-col md:flex-row justify-between w-full items-start md:items-center gap-4 md:gap-0 mb-4">
+      <div className="flex flex-col md:flex-row justify-start space-x-4 w-full items-start md:items-center gap-4 md:gap-0 mb-4">
         <h1 className="text-3xl font-bold">{movie.title}</h1>
         {movie.release > today ? null : user ? (
           <Link
@@ -46,17 +45,20 @@ export default async function Page({ params }: { params: { slug: string } }) {
         ) : (
           <CartBtn />
         )}
-        <Badge variant={"outline"} className="flex items-center gap-2">
-          <Timer /> {movie.duration} min
-        </Badge>
+        <BackBtn url={`/`} />
       </div>
       <div className="flex flex-col gap-4 md:flex-row md:gap-0 justify-between w-full">
-        <Badge variant={"outline"} className="flex items-center gap-2">
-          <h2 className="text-xl font-bold">
-            <Calendar />
-          </h2>
-          <p>{formatDate(movie.release)}</p>
-        </Badge>
+        <div className="flex gap-4">
+          <Badge variant={"outline"} className="flex items-center gap-2">
+            <Timer /> {movie.duration} min
+          </Badge>
+          <Badge variant={"outline"} className="flex items-center gap-2">
+            <h2 className="text-xl font-bold">
+              <Calendar />
+            </h2>
+            <p>{formatDate(movie.release)}</p>
+          </Badge>
+        </div>
         <div className="flex flex-wrap gap-2">
           {movie.genres.map((genre: string) => (
             <Badge variant={"outline"} key={genre}>
