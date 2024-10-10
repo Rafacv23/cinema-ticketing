@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 
+export const revalidate = 60
+
 export async function GET() {
   const prisma = new PrismaClient()
 
