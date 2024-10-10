@@ -6,25 +6,34 @@ import { SITE_URL } from "@/site/config"
 const prisma = new PrismaClient()
 
 export async function GET() {
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
+  try {
+    const { getUser } = getKindeServerSession()
+    const user = await getUser()
 
-  if (!user || user == null || !user.id)
-    throw new Error("something went wrong with authentication" + user)
+    if (!user || !user.id) {
+      throw new Error("Authentication failed: User not found.")
+    }
 
-  let dbUser = await prisma.user.findUnique({
-    where: { id: user.id },
-  })
-
-  if (!dbUser) {
-    dbUser = await prisma.user.create({
-      data: {
-        id: user.id,
-        name: `${user.given_name} ${user.family_name}`,
-        email: user.email ?? "", // Using nullish coalescing operator to provide a default empty string value
-      },
+    let dbUser = await prisma.user.findUnique({
+      where: { id: user.id },
     })
-  }
 
-  return NextResponse.redirect(SITE_URL)
+    if (!dbUser) {
+      dbUser = await prisma.user.create({
+        data: {
+          id: user.id,
+          name: `${user.given_name} ${user.family_name}`,
+          email: user.email ?? "",
+        },
+      })
+    }
+
+    return NextResponse.redirect(SITE_URL)
+  } catch (error) {
+    console.error("Error in /api/auth/success:", error)
+    return NextResponse.json(
+      { error: "An error occurred during authentication." },
+      { status: 500 }
+    )
+  }
 }
