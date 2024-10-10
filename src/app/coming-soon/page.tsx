@@ -2,9 +2,19 @@ import MoviesList from "@/components/MoviesList"
 import { SITE_URL } from "@/site/config"
 
 export default async function Home() {
-  const res = await fetch(`${SITE_URL}/api/movies/soon`)
+  try {
+    const response = await fetch(`${SITE_URL}/api/movies/soon`)
 
-  const movies = await res.json()
+    // Check if the response is ok (status code in the range 200-299)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.statusText}`)
+    }
 
-  return <MoviesList inTheaters={false} movies={movies} />
+    const movies = await response.json()
+
+    return <MoviesList inTheaters={false} movies={movies} />
+  } catch (error) {
+    console.error("Error fetching movies:", error)
+    return <div>Error loading movies. Please try again later.</div> // Optionally render an error message
+  }
 }
