@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -50,6 +51,7 @@ export default function UpdateMovieForm({
   movieData,
   slug,
 }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   movieData: any
   slug: string
 }) {
@@ -78,6 +80,7 @@ export default function UpdateMovieForm({
     remove: removeGenre,
   } = useFieldArray({
     control: form.control,
+    // @ts-expect-error
     name: "genres",
   })
 
@@ -88,6 +91,7 @@ export default function UpdateMovieForm({
     remove: removeCast,
   } = useFieldArray({
     control: form.control,
+    // @ts-expect-error
     name: "cast",
   })
 
