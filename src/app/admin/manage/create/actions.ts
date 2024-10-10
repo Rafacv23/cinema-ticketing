@@ -1,6 +1,6 @@
 "use server"
 
-import { formSchema } from "@/components/AddMovieForm"
+import { formSchema } from "@/components/forms/AddMovieForm"
 import { z } from "zod"
 import { PrismaClient } from "@prisma/client"
 import { redirect } from "next/navigation"
