@@ -24,7 +24,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   // Check if the response is ok
   if (!response.ok) {
-    return <div>Movie not found.</div>
+    return (
+      <div>
+        <BackBtn url={`/`} />
+        Movie not found.
+      </div>
+    )
   }
 
   const movie = await response.json()
